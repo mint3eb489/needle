@@ -24,6 +24,7 @@ import {
   Check,
   X
 } from 'lucide-react';
+import { BrandLogo } from './BrandLogo';
 import { FormData } from '../types';
 
 export interface LiveSummaryBoxProps {
@@ -156,13 +157,7 @@ export const LiveSummaryBox: React.FC<LiveSummaryBoxProps> = ({
                 <X className="w-4 h-4" />
               </button>
             )}
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white shadow-sm shrink-0">
-              <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <ellipse cx="18.5" cy="5.5" rx="1.5" ry="1.5" />
-                <path d="M17.5 6.5L4 20" strokeWidth="2.5" />
-                <path d="M21 3c-1 1-1.5 2-2.5 2.5" />
-              </svg>
-            </div>
+            <BrandLogo className="w-7 h-7 sm:w-8 sm:h-8" roundedClassName="rounded-lg" />
             <div className="min-w-0">
               <h3 className="text-xs font-black uppercase tracking-wider text-slate-800 dark:text-slate-100 truncate">
                 Zusammenfassung

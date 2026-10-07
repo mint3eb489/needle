@@ -1,6 +1,6 @@
 {
-  "name": "My App",
-  "short_name": "App",
+  "name": "needle – Küchenplanung",
+  "short_name": "needle",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -13,7 +13,8 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#ffffff",
+  "theme_color": "#1e293b",
   "background_color": "#ffffff",
-  "display": "standalone"
+  "display": "standalone",
+  "start_url": "/"
 }

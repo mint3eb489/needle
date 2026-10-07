@@ -3,6 +3,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 import { Lock, Mail, Eye, EyeOff, LogIn, AlertCircle, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { BrandLogo } from './BrandLogo';
 
 interface LoginScreenProps {
   isDark: boolean;
@@ -89,12 +90,8 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ isDark, onToggleTheme 
         {/* Top Header Card */}
         <div className="p-6 sm:p-8 border-b border-slate-100 dark:border-slate-800/80 text-center relative bg-slate-50/50 dark:bg-[#0f1523]/50">
           
-          <div className="mx-auto w-14 h-14 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-600/30 mb-3 transform hover:scale-105 transition-transform">
-            <svg className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <ellipse cx="18.5" cy="5.5" rx="1.5" ry="1.5" />
-              <path d="M17.5 6.5L4 20" strokeWidth="2.5" />
-              <path d="M21 3c-1 1-1.5 2-2.5 2.5" />
-            </svg>
+          <div className="mx-auto w-16 h-16 flex items-center justify-center mb-3 transform hover:scale-105 transition-transform">
+            <BrandLogo className="w-16 h-16" roundedClassName="rounded-2xl" />
           </div>
 
           <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight font-sans">

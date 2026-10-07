@@ -34,6 +34,7 @@ import { MeterCalculationModal } from './components/MeterCalculationModal';
 import { LiveSummaryBox, calculateConsultationProgress } from './components/LiveSummaryBox';
 import { LoginScreen } from './components/LoginScreen';
 import { UserProfileModal } from './components/UserProfileModal';
+import { BrandLogo } from './components/BrandLogo';
 
 const APPLET_ID = 'dff4838f-2c38-41e3-ba3f-d3c751b5d42a';
 
@@ -1713,13 +1714,7 @@ export default function App() {
             <div className="flex items-center justify-between gap-3">
               {/* Brand Logo */}
               <div className="flex items-center gap-2.5 shrink-0">
-                <div className="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-600/10 shrink-0">
-                  <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <ellipse cx="18.5" cy="5.5" rx="1.5" ry="1.5" />
-                    <path d="M17.5 6.5L4 20" strokeWidth="2.5" />
-                    <path d="M21 3c-1 1-1.5 2-2.5 2.5" />
-                  </svg>
-                </div>
+                <BrandLogo className="w-9 h-9" />
                 <div>
                   <h1 className="text-2xl font-black tracking-tight text-slate-900 dark:text-white flex items-center gap-1.5 select-none font-sans">
                     needle
@@ -1827,13 +1822,7 @@ export default function App() {
             <div className="lg:col-span-7 xl:col-span-8 flex flex-wrap items-center justify-between gap-3">
               {/* Brand Logo */}
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-600/10 shrink-0">
-                  <svg className="w-5.5 h-5.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <ellipse cx="18.5" cy="5.5" rx="1.5" ry="1.5" />
-                    <path d="M17.5 6.5L4 20" strokeWidth="2.5" />
-                    <path d="M21 3c-1 1-1.5 2-2.5 2.5" />
-                  </svg>
-                </div>
+                <BrandLogo className="w-10 h-10" />
                 <div>
                   <h1 className="text-2xl font-black tracking-tight text-slate-900 dark:text-white flex items-center gap-2 select-none font-sans">
                     needle
