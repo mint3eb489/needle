@@ -1,0 +1,67 @@
+{
+  "entities": {
+    "consultation": {
+      "title": "Küche Bedarfsermittlung",
+      "description": "Erfasste Daten zur Küchenbedarfsermittlung wie Kundendaten, Raummaße, Hersteller- und Frontdetails, Elektrogeräte und Distanzberechnungen.",
+      "type": "object",
+      "properties": {
+        "firstName": { "type": "string", "description": "Vorname des Kunden" },
+        "lastName": { "type": "string", "description": "Nachname des Kunden" },
+        "street": { "type": "string", "description": "Straßenname" },
+        "houseNumber": { "type": "string", "description": "Hausnummer" },
+        "zipCode": { "type": "string", "description": "Postleitzahl" },
+        "city": { "type": "string", "description": "Stadt/Ort" },
+        "phone": { "type": "string", "description": "Telefonnummer des Kunden" },
+        "email": { "type": "string", "description": "E-Mail-Adresse des Kunden" },
+        "source": { "type": "string", "description": "Wie der Kunde aufmerksam wurde" },
+        "budget": { "type": "string", "description": "Grobe Budgetplanung" },
+        "timeline": { "type": "string", "description": "Gewünschter Umsetzungs-Zeitplan" },
+        "manufacturer": { "type": "string", "description": "Küchenhersteller (Häcker / Ballerina)" },
+        "frontMaterial": { "type": "string", "description": "Gewähltes Frontmaterial" },
+        "frontColor": { "type": "string", "description": "Gewählte Frontfarbe" },
+        "hasSecondFront": { "type": "boolean", "description": "Gibt an, ob eine zweite Akzentfront gewünscht ist" },
+        "secondFrontMaterial": { "type": "string", "description": "Gewähltes Material der Akzentfront" },
+        "secondFrontColor": { "type": "string", "description": "Gewählte Farbe der Akzentfront" },
+        "handleStyles": {
+          "type": "object",
+          "description": "Ausgewählte Griff-Stile (grifflos, griffleisten, griffe)"
+        },
+        "handleNotes": {
+          "type": "object",
+          "description": "Notizen zu den Griff-Stilen"
+        },
+        "worktopTypes": {
+          "type": "object",
+          "description": "Ausgewählte Typen für Arbeitsplatten"
+        },
+        "worktopNotes": {
+          "type": "object",
+          "description": "Notizen zu den Arbeitsplatten-Dekoren"
+        },
+        "workHeight": { "type": "string", "description": "Arbeitshöhe in cm" },
+        "roomHeight": { "type": "string", "description": "Raumhöhe in cm" },
+        "sillHeight": { "type": "string", "description": "Brüstungshöhen in cm" },
+        "ceilingHigh": { "type": "boolean", "description": "Ob dekenhoch geplant wird" },
+        "ceilingPanel": { "type": "boolean", "description": "Ob eine Deckenblende gewünscht ist" },
+        "appliances": {
+          "type": "object",
+          "description": "Liste der benötigten Elektrogeräte und deren Details"
+        },
+        "faucet": { "type": "string", "description": "Gewünschte Armatur" },
+        "wasteBin": { "type": "string", "description": "Gewählter Abfallsammler" },
+        "notes": { "type": "string", "description": "Sonstige Notizen" },
+        "distanceKm": { "type": "string", "description": "Distanz vom Küchenstudio zum Kunden in km" },
+        "driveTimeMin": { "type": "string", "description": "Fahrzeit vom Küchenstudio zum Kunden in Minuten" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Erstellungs-Zeitstempel" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Letzter Änderungs-Zeitstempel" }
+      },
+      "required": ["firstName", "lastName"]
+    }
+  },
+  "firestore": {
+    "artifacts/{appId}/users/{userId}/consultations/{consultationId}": {
+      "schema": "consultation",
+      "description": "Datensätze der Bedarfsermittlung für jeden einzelnen Nutzer getrennt nach App-ID und Firebase-UID."
+    }
+  }
+}

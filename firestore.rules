@@ -1,0 +1,41 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default-deny root policy
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Auth validation helper
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Helper to validate document IDs
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Restrict consultations to authenticated users (allows collectionGroup queries for admins)
+    match /artifacts/{appId}/users/{userId}/consultations/{consultationId} {
+      allow read, write: if isSignedIn();
+    }
+
+    match /{path=**}/consultations/{consultationId} {
+      allow read, write: if isSignedIn();
+    }
+
+    // Allow user permissions
+    match /user_permissions/{permissionId} {
+      allow read, write: if isSignedIn();
+    }
+
+    // Allow shared app catalog settings
+    match /artifacts/{appId}/settings/{settingId} {
+      allow read: if isValidId(appId) && isValidId(settingId);
+      allow write: if isSignedIn() 
+                         && isValidId(appId)
+                         && isValidId(settingId);
+    }
+  }
+}

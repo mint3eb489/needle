@@ -1,0 +1,6 @@
+{
+  "name": "needle",
+  "description": "Erleichtert die Bedarfsermittlung bei der Küchenplanung direkt am Tablet vor Ort beim Kunden, mit integrierter PLZ-Prüfung, Streckenberechnung und Cloud-Synchronisation.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
