@@ -30,8 +30,16 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ isDark, onToggleTheme 
         return 'Zu viele gescheiterte Anmeldeversuche. Bitte warten Sie einen Moment.';
       case 'auth/network-request-failed':
         return 'Netzwerkfehler. Bitte überprüfen Sie Ihre Internetverbindung.';
+      case 'auth/operation-not-allowed':
+        return 'E-Mail/Passwort-Anmeldung ist im Firebase-Projekt noch nicht aktiviert (Firebase Console > Authentication > Sign-in method).';
+      case 'auth/unauthorized-domain':
+        return 'Diese Domain ist in Firebase nicht autorisiert (Firebase Console > Authentication > Settings > Authorized domains).';
+      case 'auth/api-key-not-valid':
+        return 'Ungültiger Firebase API-Key. Bitte Konfiguration überprüfen.';
       default:
-        return 'Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldedaten.';
+        return errorCode 
+          ? `Anmeldung fehlgeschlagen (${errorCode}). Bitte Anmeldedaten und Firebase-Projekt überprüfen.`
+          : 'Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldedaten.';
     }
   };
 
