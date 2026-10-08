@@ -91,18 +91,20 @@ html, body {
 
 /* iOS Safe Area & Native App Container */
 .app-container-safe {
-  padding-top: calc(env(safe-area-inset-top, 0px) + 0.75rem);
-  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0.75rem);
-  padding-left: calc(env(safe-area-inset-left, 0px) + 0.75rem);
-  padding-right: calc(env(safe-area-inset-right, 0px) + 0.75rem);
+  /* On iPhone notches / Dynamic Island, safe-area-inset-top is 47px-59px. 
+     Providing generous top clearance ensures the iOS status bar blur effect never reaches the app logo, title or action buttons */
+  padding-top: max(1.75rem, calc(env(safe-area-inset-top, 0px) + 1.25rem));
+  padding-bottom: max(1rem, calc(env(safe-area-inset-bottom, 0px) + 0.75rem));
+  padding-left: max(0.75rem, calc(env(safe-area-inset-left, 0px) + 0.75rem));
+  padding-right: max(0.75rem, calc(env(safe-area-inset-right, 0px) + 0.75rem));
 }
 
 @media (min-width: 768px) {
   .app-container-safe {
-    padding-top: calc(env(safe-area-inset-top, 0px) + 2rem);
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 2rem);
-    padding-left: calc(env(safe-area-inset-left, 0px) + 2rem);
-    padding-right: calc(env(safe-area-inset-right, 0px) + 2rem);
+    padding-top: max(2rem, calc(env(safe-area-inset-top, 0px) + 2rem));
+    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom, 0px) + 2rem));
+    padding-left: max(2rem, calc(env(safe-area-inset-left, 0px) + 2rem));
+    padding-right: max(2rem, calc(env(safe-area-inset-right, 0px) + 2rem));
   }
 }
 

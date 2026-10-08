@@ -75,10 +75,8 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ isDark, onToggleTheme 
   return (
     <div className="min-h-screen w-full bg-slate-100 dark:bg-[#0b0f19] flex items-center justify-center app-container-safe transition-colors duration-200">
       
-      {/* Background Ambient Glow */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden flex items-center justify-center">
-        <div className="w-[500px] h-[500px] bg-indigo-500/10 dark:bg-indigo-600/15 rounded-full blur-3xl transform -translate-y-12"></div>
-      </div>
+      {/* Subtle radial gradient background instead of blur filter element */}
+      <div className="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-500/5 via-transparent to-transparent dark:from-indigo-600/10"></div>
 
       <motion.div 
         initial={{ opacity: 0, y: 15, scale: 0.98 }}
