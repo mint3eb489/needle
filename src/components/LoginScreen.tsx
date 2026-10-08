@@ -73,7 +73,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ isDark, onToggleTheme 
   };
 
   return (
-    <div className="min-h-screen w-full bg-slate-100 dark:bg-[#0b0f19] flex items-center justify-center p-4 sm:p-6 transition-colors duration-200">
+    <div className="min-h-screen w-full bg-slate-100 dark:bg-[#0b0f19] flex items-center justify-center app-container-safe transition-colors duration-200">
       
       {/* Background Ambient Glow */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden flex items-center justify-center">

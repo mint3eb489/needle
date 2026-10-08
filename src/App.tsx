@@ -92,6 +92,9 @@ export default function App() {
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDark);
+    const themeColor = isDark ? '#0b0f19' : '#FAF6EE';
+    const metas = document.querySelectorAll('meta[name="theme-color"]');
+    metas.forEach(meta => meta.setAttribute('content', themeColor));
   }, [isDark]);
 
   const toggleTheme = () => {
@@ -1703,7 +1706,7 @@ export default function App() {
   }
 
   return (
-    <div className={`min-h-screen transition-colors duration-200 p-3 md:p-8 flex flex-col font-sans ${isDark ? 'bg-[#0b0f19] text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
+    <div className={`min-h-screen transition-colors duration-200 app-container-safe flex flex-col font-sans ${isDark ? 'bg-[#0b0f19] text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
       <div className="mx-auto w-full flex-1 transition-all duration-300 max-w-7xl">
         
         {/* Header */}

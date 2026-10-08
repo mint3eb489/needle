@@ -83,6 +83,27 @@
 /* Base custom resets */
 html, body {
   @apply bg-slate-50 text-slate-900 dark:bg-[#0b0f19] dark:text-slate-100;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overscroll-behavior-y: none;
+}
+
+/* iOS Safe Area & Native App Container */
+.app-container-safe {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 0.75rem);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0.75rem);
+  padding-left: calc(env(safe-area-inset-left, 0px) + 0.75rem);
+  padding-right: calc(env(safe-area-inset-right, 0px) + 0.75rem);
+}
+
+@media (min-width: 768px) {
+  .app-container-safe {
+    padding-top: calc(env(safe-area-inset-top, 0px) + 2rem);
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 2rem);
+    padding-left: calc(env(safe-area-inset-left, 0px) + 2rem);
+    padding-right: calc(env(safe-area-inset-right, 0px) + 2rem);
+  }
 }
 
 /* Global button, input transitions */
