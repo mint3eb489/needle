@@ -39,28 +39,108 @@ export interface LiveSummaryBoxProps {
 }
 
 export const calculateConsultationProgress = (formData: FormData): number => {
-  let score = 0;
-  let total = 8;
+  if (!formData) return 0;
 
-  // 1. Name
-  if (formData.firstName || formData.lastName) score += 1;
-  // 2. Address/Contact
-  if (formData.street || formData.city || formData.phone || formData.mobile || formData.email) score += 1;
-  // 3. Manufacturer
-  if (formData.manufacturer) score += 1;
-  // 4. Budget & Timeline
-  if (formData.budget || formData.timeline) score += 1;
-  // 5. Fronts
-  if (formData.frontMaterial || formData.frontColor) score += 1;
-  // 6. Worktop
-  if (formData.worktopTypes?.schichtstoff || formData.worktopTypes?.naturstein || formData.worktopTypes?.dekton) score += 1;
-  // 7. Dimensions
-  if (formData.workHeight || formData.roomHeight) score += 1;
-  // 8. Appliances
-  const hasAppliance = (Object.values(formData.appliances || {}) as { needed?: boolean; details?: string[] }[]).some(a => a.needed || (a.details && a.details.length > 0));
-  if (hasAppliance) score += 1;
+  // STEP 1: Raum & Design (max 25%)
+  let step1 = 0;
+  // Hersteller gewählt (5 Punkte)
+  if (formData.manufacturer && formData.manufacturer.trim().length > 0) {
+    step1 += 5;
+  }
+  // Front-Material & Front-Farbe (je 4 Punkte = 8 Punkte)
+  if (formData.frontMaterial && formData.frontMaterial.trim().length > 0) {
+    step1 += 4;
+  }
+  if (formData.frontColor && formData.frontColor.trim().length > 0) {
+    step1 += 4;
+  }
+  // Optionale Zusatzfronten (1 Punkt)
+  if (formData.hasSecondFront && (formData.secondFrontMaterial || formData.secondFrontColor)) {
+    step1 += 1;
+  }
+  // Griffausführung (4 Punkte für Stil + 1 Punkt für Notiz)
+  const hasHandleStyle = Boolean(
+    formData.handleStyles?.grifflos || 
+    formData.handleStyles?.griffleisten || 
+    formData.handleStyles?.griffe
+  );
+  if (hasHandleStyle) step1 += 4;
+  const hasHandleNote = Boolean(
+    formData.handleNotes?.grifflos?.trim() || 
+    formData.handleNotes?.griffleisten?.trim() || 
+    formData.handleNotes?.griffe?.trim()
+  );
+  if (hasHandleNote) step1 += 1;
 
-  return Math.round((score / total) * 100);
+  // Arbeitsplatte (4 Punkte für Typ + 2 Punkte für Notiz)
+  const hasWorktopType = Boolean(
+    formData.worktopTypes?.schichtstoff || 
+    formData.worktopTypes?.naturstein || 
+    formData.worktopTypes?.dekton
+  );
+  if (hasWorktopType) step1 += 4;
+  const hasWorktopNote = Boolean(
+    formData.worktopNotes?.schichtstoff?.trim() || 
+    formData.worktopNotes?.naturstein?.trim() || 
+    formData.worktopNotes?.dekton?.trim()
+  );
+  if (hasWorktopNote) step1 += 2;
+  step1 = Math.min(25, step1);
+
+  // STEP 2: Grundriss & Aufmaß (max 25%)
+  let step2 = 0;
+  if (formData.workHeight && formData.workHeight.trim().length > 0) step2 += 6;
+  if (formData.roomHeight && formData.roomHeight.trim().length > 0) step2 += 6;
+  if (formData.sillHeight && formData.sillHeight.trim().length > 0) step2 += 3;
+  if (formData.ceilingHigh || (formData.ceilingPanel && String(formData.ceilingPanel).trim().length > 0)) {
+    step2 += 3;
+  }
+  if (formData.floorPlans && formData.floorPlans.length > 0) {
+    step2 += Math.min(7, formData.floorPlans.length * 4);
+  }
+  step2 = Math.min(25, step2);
+
+  // STEP 3: Geräte & Zubehör (max 25%)
+  let step3 = 0;
+  let appliancesScore = 0;
+  const appliancesList = Object.values(formData.appliances || {}) as { needed?: boolean; details?: string[] }[];
+  appliancesList.forEach(app => {
+    if (app.needed) appliancesScore += 2;
+    if (app.details && app.details.length > 0) appliancesScore += 1;
+  });
+  step3 += Math.min(17, appliancesScore);
+
+  // Sanitär & Zubehör (je 4 Punkte)
+  if (formData.faucet && formData.faucet.trim().length > 0) step3 += 4;
+  if (formData.wasteBin && formData.wasteBin.trim().length > 0) step3 += 4;
+  step3 = Math.min(25, step3);
+
+  // STEP 4: Kundendaten & Rahmenbedingungen (max 25%)
+  let step4 = 0;
+  // Name (je 3 Punkte)
+  if (formData.firstName && formData.firstName.trim().length > 0) step4 += 3;
+  if (formData.lastName && formData.lastName.trim().length > 0) step4 += 3;
+  // Adresse (je 3 Punkte)
+  if ((formData.street && formData.street.trim().length > 0) || (formData.houseNumber && formData.houseNumber.trim().length > 0)) {
+    step4 += 3;
+  }
+  if ((formData.zipCode && formData.zipCode.trim().length > 0) || (formData.city && formData.city.trim().length > 0)) {
+    step4 += 3;
+  }
+  // Kontakt (je 3 Punkte)
+  if ((formData.phone && formData.phone.trim().length > 0) || (formData.mobile && formData.mobile.trim().length > 0)) {
+    step4 += 3;
+  }
+  if (formData.email && formData.email.trim().length > 0) step4 += 3;
+  // Projektdetails (Budget, Zeitplan, Quelle, Notizen)
+  if (formData.budget && formData.budget.trim().length > 0) step4 += 3;
+  if (formData.timeline && formData.timeline.trim().length > 0) step4 += 2;
+  if (formData.source && formData.source.trim().length > 0) step4 += 1;
+  if (formData.notes && formData.notes.trim().length > 0) step4 += 1;
+  step4 = Math.min(25, step4);
+
+  const total = step1 + step2 + step3 + step4;
+  return Math.min(100, Math.max(0, Math.round(total)));
 };
 
 const applianceLabels: Record<string, string> = {
@@ -464,16 +544,16 @@ export const LiveSummaryBox: React.FC<LiveSummaryBoxProps> = ({
                 </div>
 
                 {/* Ceiling flags */}
-                {(formData.ceilingHigh || formData.ceilingPanel) && (
-                  <div className="flex gap-2 pt-1">
+                {(formData.ceilingHigh || Boolean(formData.ceilingPanel)) && (
+                  <div className="flex gap-2 pt-1 flex-wrap">
                     {formData.ceilingHigh && (
                       <span className="px-2 py-0.5 bg-slate-100 dark:bg-[#0b0f19] text-slate-700 dark:text-slate-300 text-[10px] font-bold rounded border border-slate-200 dark:border-slate-800">
                         ✓ Deckenhoch
                       </span>
                     )}
-                    {formData.ceilingPanel && (
+                    {Boolean(formData.ceilingPanel) && (
                       <span className="px-2 py-0.5 bg-slate-100 dark:bg-[#0b0f19] text-slate-700 dark:text-slate-300 text-[10px] font-bold rounded border border-slate-200 dark:border-slate-800">
-                        ✓ Deckenblende
+                        ✓ {typeof formData.ceilingPanel === 'string' && formData.ceilingPanel ? formData.ceilingPanel : 'Deckenblende'}
                       </span>
                     )}
                   </div>

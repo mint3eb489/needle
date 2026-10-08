@@ -12,15 +12,15 @@ export const SectionCard: React.FC<{
   children: React.ReactNode;
 }> = ({ title, icon: Icon, headerRight, children }) => (
   <div className="bg-white dark:bg-[#151c2c] rounded-2xl border border-slate-200 dark:border-slate-800 transition-all mb-6 shadow-sm overflow-hidden flex flex-col flex-1 hover:shadow-md hover:border-indigo-500/20 dark:hover:border-indigo-500/40">
-    <div className="p-6 flex flex-col flex-1">
-      <div className="mb-5 border-b border-slate-100 dark:border-slate-800 pb-3.5 flex items-center justify-between gap-3 flex-wrap sm:flex-nowrap">
-        <div className="flex items-center gap-3 shrink-0">
+    <div className="p-4 sm:p-6 flex flex-col flex-1">
+      <div className="mb-5 border-b border-slate-100 dark:border-slate-800 pb-3.5 flex items-center justify-between gap-2 sm:gap-3 flex-nowrap">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0 shrink">
           <div className="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0 border border-indigo-100 dark:border-indigo-900/40">
             <Icon className="w-4 h-4" />
           </div>
-          <h2 className="text-xs font-bold uppercase tracking-widest text-slate-800 dark:text-slate-100">{title}</h2>
+          <h2 className="text-xs font-bold uppercase tracking-wider sm:tracking-widest text-slate-800 dark:text-slate-100 truncate">{title}</h2>
         </div>
-        {headerRight && <div className="flex items-center gap-2">{headerRight}</div>}
+        {headerRight && <div className="flex items-center gap-2 shrink-0">{headerRight}</div>}
       </div>
       {children}
     </div>

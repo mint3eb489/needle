@@ -89,7 +89,12 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ isDark, onToggleTheme 
         <div className="p-6 sm:p-8 border-b border-slate-100 dark:border-slate-800/80 text-center relative bg-slate-50/50 dark:bg-[#0f1523]/50">
           
           <div className="mx-auto w-16 h-16 flex items-center justify-center mb-3 transform hover:scale-105 transition-transform">
-            <BrandLogo className="w-16 h-16" roundedClassName="rounded-2xl" />
+            <BrandLogo 
+              className="w-16 h-16" 
+              roundedClassName="rounded-2xl" 
+              onClick={onToggleTheme}
+              title={`needle Logo: Farbschema wechseln (${isDark ? 'Hell-Modus' : 'Dunkel-Modus'})`}
+            />
           </div>
 
           <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight font-sans">

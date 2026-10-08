@@ -292,6 +292,21 @@ export const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
                     <span className="font-bold text-slate-900 dark:text-white">{consultation.wasteBin}</span>
                   </div>
                 )}
+
+                {/* Deckenplanung */}
+                {(consultation.ceilingHigh || Boolean(consultation.ceilingPanel)) && (
+                  <div className="p-2.5 rounded-xl bg-white dark:bg-[#151c2c] border border-slate-200/70 dark:border-slate-800">
+                    <span className="text-[9px] font-extrabold uppercase text-slate-400 block mb-0.5">Deckenplanung</span>
+                    <span className="font-bold text-slate-900 dark:text-white">
+                      {[
+                        consultation.ceilingHigh ? 'Deckenhoch' : null,
+                        typeof consultation.ceilingPanel === 'string' && consultation.ceilingPanel 
+                          ? consultation.ceilingPanel 
+                          : consultation.ceilingPanel ? 'Deckenblende' : null
+                      ].filter(Boolean).join(' • ')}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
 

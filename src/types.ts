@@ -73,7 +73,7 @@ export interface FormData {
   roomHeight: string;
   sillHeight: string;
   ceilingHigh: boolean;
-  ceilingPanel: boolean;
+  ceilingPanel: boolean | string;
   appliances: Appliances;
   faucet: string;
   wasteBin: string;

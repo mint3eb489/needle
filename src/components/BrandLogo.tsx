@@ -3,11 +3,15 @@ import React, { useState } from 'react';
 interface BrandLogoProps {
   className?: string;
   roundedClassName?: string;
+  onClick?: () => void;
+  title?: string;
 }
 
 export const BrandLogo: React.FC<BrandLogoProps> = ({ 
   className = "w-10 h-10",
-  roundedClassName = "rounded-xl"
+  roundedClassName = "rounded-xl",
+  onClick,
+  title
 }) => {
   const [imgSrc, setImgSrc] = useState<string>('/apple-touch-icon.png');
   const [failedAll, setFailedAll] = useState(false);
@@ -22,7 +26,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
     }
   };
 
-  return (
+  const imageElement = (
     <div className={`${className} ${roundedClassName} overflow-hidden flex items-center justify-center shrink-0 ${failedAll ? 'bg-indigo-600 shadow-lg shadow-indigo-600/10' : 'bg-transparent'}`}>
       {!failedAll ? (
         <img
@@ -40,4 +44,20 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
       )}
     </div>
   );
+
+  if (onClick) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        title={title}
+        aria-label={title || "needle Logo"}
+        className="focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-xl cursor-pointer active:scale-90 transition-transform shrink-0"
+      >
+        {imageElement}
+      </button>
+    );
+  }
+
+  return imageElement;
 };
